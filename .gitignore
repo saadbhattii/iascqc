@@ -1,0 +1,6 @@
+node_modules/
+tests/output/
+.DS_Store
+# vendor/three.min.js is optional and can be committed if you want offline use;
+# it is ignored by default to keep the repository small.
+vendor/three.min.js

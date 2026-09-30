@@ -1,0 +1,3 @@
+Optional: for fully offline use, save three.js r147 here as "three.min.js".
+Download: https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js
+Without it, index.html loads three.js from the internet automatically.

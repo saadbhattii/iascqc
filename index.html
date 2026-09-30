@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Inside a superconducting quantum computer</title>
+  <meta name="description" content="An interactive 3D model of a superconducting quantum computer: take apart the dilution refrigerator, the sample package, the chip and a Josephson junction.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧊</text></svg>">
+</head>
+<body data-panel="">
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Inside a superconducting quantum computer</h1>
+        <p class="brand-sub">From the equipment room down to a single Josephson junction</p>
+      </div>
+      <nav class="ladder" aria-label="Zoom level">
+        <button type="button" class="view-btn" data-view="system" aria-pressed="false"><span class="view-name">Whole system</span><span class="view-scale"></span></button>
+        <button type="button" class="view-btn" data-view="cryostat" aria-pressed="true"><span class="view-name">Cryostat</span><span class="view-scale"></span></button>
+        <button type="button" class="view-btn" data-view="package" aria-pressed="false"><span class="view-name">Sample package</span><span class="view-scale"></span></button>
+        <button type="button" class="view-btn" data-view="chip" aria-pressed="false"><span class="view-name">Quantum chip</span><span class="view-scale"></span></button>
+        <button type="button" class="view-btn" data-view="qubit" aria-pressed="false"><span class="view-name">Josephson junction</span><span class="view-scale"></span></button>
+      </nav>
+    </header>
+
+    <aside id="parts" class="panel panel-parts" aria-label="Parts list">
+      <div class="panel-head">
+        <label for="search" class="panel-label">Parts</label>
+        <button type="button" class="panel-close" data-panel-close aria-label="Close parts list">Close</button>
+      </div>
+      <input id="search" type="search" placeholder="Search, e.g. amplifier" autocomplete="off">
+      <div id="tree" class="tree"></div>
+    </aside>
+
+    <main id="stage" class="stage">
+      <canvas id="gl" aria-label="Interactive 3D model. Drag to rotate, scroll to zoom, click a part to learn about it."></canvas>
+      <div id="labels" class="labels"></div>
+      <!-- View captions: kept in the code and still filled in for each view, but hidden on purpose
+           because the text covered the model. To show them, set QC.SHOW_CAPTIONS = true in js/app.js. -->
+      <p id="caption" class="caption" hidden></p>
+      <div id="hovertip" class="hovertip" hidden></div>
+      <div id="legend" class="legend" hidden></div>
+      <p id="signalcap" class="signalcap" hidden>Copper pulses are control signals travelling down, weakened at each stage. Blue pulses are readout signals travelling up, amplified at 10 mK and again at 4 K.</p>
+      <div id="tourbar" class="tourbar" hidden>
+        <p class="tour-count"></p>
+        <p class="tour-note"></p>
+        <div class="tour-actions">
+          <button type="button" class="btn" data-tour="prev">Back</button>
+          <button type="button" class="btn btn-primary" data-tour="next">Next</button>
+          <button type="button" class="btn btn-quiet" data-tour="exit">End tour</button>
+        </div>
+      </div>
+      <div id="loading" class="loading">
+        <p>Cooling down the model&hellip;</p>
+      </div>
+      <div class="mobile-toggles">
+        <button type="button" class="btn" data-panel-open="parts">Parts</button>
+        <button type="button" class="btn" data-panel-open="info">Details</button>
+      </div>
+    </main>
+
+    <aside id="info" class="panel panel-info" aria-label="Part details" aria-live="polite">
+      <div class="panel-head">
+        <span class="panel-label">Details</span>
+        <button type="button" class="panel-close" data-panel-close aria-label="Close details">Close</button>
+      </div>
+      <div id="info-body"></div>
+    </aside>
+
+    <footer class="controls">
+      <div class="explode">
+        <label for="explode">Take apart</label>
+        <input id="explode" type="range" min="0" max="100" value="0">
+        <output id="explode-out" for="explode">Assembled</output>
+      </div>
+      <div class="toggles">
+        <button type="button" class="toggle" id="t-shields" aria-pressed="true">Vacuum cans</button>
+        <button type="button" class="toggle" id="t-labels" aria-pressed="true">Labels</button>
+        <button type="button" class="toggle" id="t-temp" aria-pressed="false">Temperature map</button>
+        <button type="button" class="toggle" id="t-signal" aria-pressed="false">Follow a signal</button>
+        <button type="button" class="toggle" id="t-tour" aria-pressed="false">Guided tour</button>
+        <button type="button" class="btn btn-quiet" id="t-reset">Reset view</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* Load three.js (local copy first, then two CDNs), then the app scripts in order.
+       Classic scripts are used so the page also works when opened straight from disk. */
+    (function () {
+      var three = [
+        'vendor/three.min.js',
+        'https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
+      ];
+      var app = ['js/data.js', 'js/util.js', 'js/controls.js', 'js/build-cryostat.js', 'js/build-facility.js', 'js/build-detail.js', 'js/app.js'];
+      function load(src, ok, fail) {
+        var s = document.createElement('script');
+        s.src = src; s.async = false;
+        s.onload = ok; s.onerror = fail;
+        document.body.appendChild(s);
+      }
+      function fail(msg) {
+        var l = document.getElementById('loading');
+        l.classList.add('is-error');
+        l.innerHTML = msg;
+      }
+      function nextThree(i) {
+        if (i >= three.length) {
+          fail('<p><strong>The 3D engine could not load.</strong></p><p>This page downloads three.js from the internet the first time. Connect to the internet and reload, or save <code>three.min.js</code> (version r147) into the <code>vendor</code> folder to use it offline.</p>');
+          return;
+        }
+        load(three[i], function () { window.THREE ? nextApp(0) : nextThree(i + 1); }, function () { nextThree(i + 1); });
+      }
+      function nextApp(i) {
+        if (i >= app.length) {
+          try { window.QC.start(); }
+          catch (e) {
+            console.error(e);
+            fail('<p><strong>The model could not start.</strong></p><p>' + (e && e.message ? e.message : e) + '</p><p>Try a current version of Chrome, Edge, Firefox or Safari with WebGL enabled.</p>');
+          }
+          return;
+        }
+        load(app[i], function () { nextApp(i + 1); }, function () { fail('<p><strong>A file is missing:</strong> ' + app[i] + '</p><p>Unzip the whole folder and open index.html from inside it.</p>'); });
+      }
+      nextThree(0);
+    })();
+  </script>
+</body>
+</html>
