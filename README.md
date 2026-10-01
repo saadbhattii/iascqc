@@ -1,16 +1,21 @@
-# [Inside a superconducting quantum computer]("https://iascqc.pages.dev/")
+<h1 align="left">
+  Inside a superconducting quantum computer
+  <a href="https://iascqc.pages.dev" style="font-size: 0.5em; vertical-align: middle;">[live]</a>
+</h1>
 
 An interactive, procedurally built three.js model of a superconducting quantum computer
 that you can take apart, from the equipment room down to a single Josephson junction.
 
-## Open it
+## User Interface
 
-Unzip the folder and double-click `index.html`. It works straight from disk; no server
-or build step is needed. The first load needs an internet connection to fetch three.js
-(r147) and the IBM Plex fonts. To use it offline, save
-`https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js` as `vendor/three.min.js`.
+<p align="center">
+  <img src="docs/screenshots/quantum-chip.png" alt="Iascqc interface" width="900">
+</p>
 
-To host it, upload the whole folder to any static host (GitHub Pages, Netlify, a school server).
+<p align="center">
+  Quantum chip with five transmon qubits, couplers, resonators, control lines and flip-chip layers.
+</p>
+
 
 ## Five zoom levels
 
