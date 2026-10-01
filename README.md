@@ -3,6 +3,15 @@
 An interactive, procedurally built three.js model of a superconducting quantum computer
 that you can take apart, from the equipment room down to a single Josephson junction.
 
+## Open it
+
+Unzip the folder and double-click `index.html`. It works straight from disk; no server
+or build step is needed. The first load needs an internet connection to fetch three.js
+(r147) and the IBM Plex fonts. To use it offline, save
+`https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js` as `vendor/three.min.js`.
+
+To host it, upload the whole folder to any static host (GitHub Pages, Netlify, a school server).
+
 ## Five zoom levels
 
 | View | Scale | What is modelled |
@@ -59,5 +68,6 @@ values are typical figures, not specifications.
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Attributions for the GitHub mark (Octicons, MIT), three.js (MIT) and
-the IBM Plex fonts (SIL OFL 1.1) are in [NOTICE.md](NOTICE.md). Source: https://github.com/saadbhattii/iascqc
+MIT, see [LICENSE](LICENSE). Attributions for the browser icon (Fluent Emoji 3D ice cube by
+Microsoft, MIT), the GitHub mark (Octicons, MIT), three.js (MIT) and the IBM Plex fonts
+(SIL OFL 1.1) are in [NOTICE.md](NOTICE.md). Source: https://github.com/saadbhattii/iascqc
