@@ -23,7 +23,7 @@
   const SCALE = { system: 'about 3 m', cryostat: 'about 1.5 m', package: 'about 3 cm', chip: 'about 10 mm', qubit: 'about 1 \u00b5m' };
 
   const state = {
-    view: 'cryostat', explode: {}, explodeTarget: {}, shields: true, labels: true, tempMap: false, signal: false,
+    view: 'system', explode: {}, explodeTarget: {}, shields: true, labels: true, tempMap: false, signal: false,
     selected: null, hovered: null, isolate: false, tour: -1,
   };
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -716,16 +716,12 @@
       setView(QC.PARTS[hash].view, { instant: true });
       select(hash, { focus: true });
     } else {
-      setView('cryostat', { instant: true });
-      // opening moment: the cans lower and the stages part slightly
-      const start = VIEWS.cryostat;
-      camera.position.set(start.cam[0] * 1.35, start.cam[1] * 1.2, start.cam[2] * 1.35);
+      // default view: the whole system, with a gentle camera swing-in.
+      // (No take-apart here: the whole-system view keeps the fridge assembled.)
+      setView('system', { instant: true });
+      const start = VIEWS.system;
+      camera.position.set(start.cam[0] * 1.25, start.cam[1] * 1.3, start.cam[2] * 1.25);
       moveCamera(new T.Vector3().fromArray(start.cam), new T.Vector3().fromArray(start.target), false);
-      setTimeout(() => {
-        state.explodeTarget.cryostat = 0.35;
-        document.getElementById('explode').value = 35;
-        updateSliderText();
-      }, reduceMotion ? 0 : 700);
     }
     document.getElementById('loading').hidden = true;
     requestAnimationFrame(loop);

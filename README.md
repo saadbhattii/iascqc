@@ -59,4 +59,5 @@ values are typical figures, not specifications.
 
 ## License
 
-MIT.
+MIT, see [LICENSE](LICENSE). Attributions for the GitHub mark (Octicons, MIT), three.js (MIT) and
+the IBM Plex fonts (SIL OFL 1.1) are in [NOTICE.md](NOTICE.md). Source: https://github.com/saadbhattii/iascqc
