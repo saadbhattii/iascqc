@@ -63,13 +63,13 @@ values are typical figures, not specifications.
 
 ## Files
 
-- `index.html` — page and script loader
-- `css/style.css` — interface styles
-- `js/data.js` — every part's name, location, temperature and explanation (edit this to change the teaching text)
-- `js/util.js` — materials and building helpers
-- `js/controls.js` — camera controls
-- `js/build-cryostat.js`, `js/build-facility.js`, `js/build-detail.js` — the 3D model
-- `js/app.js` — interaction, labels, tour, temperature map, signal animation
+- `index.html` -- page and script loader
+- `css/style.css` -- interface styles
+- `js/data.js` -- every part's name, location, temperature and explanation (edit this to change the teaching text)
+- `js/util.js` -- materials and building helpers
+- `js/controls.js` -- camera controls
+- `js/build-cryostat.js`, `js/build-facility.js`, `js/build-detail.js` -- the 3D model
+- `js/app.js` -- interaction, labels, tour, temperature map, signal animation
 
 ## License
 
