@@ -1,9 +1,9 @@
 <h1 align="left">
   Inside a superconducting quantum computer
-  <a href="https://iascqc.pages.dev" style="font-size: 0.5em; vertical-align: middle;">[live]</a>
+  <a href="https://iascqc.pages.dev" style="font-size: 0.3em; vertical-align: middle;">[live]</a>
 </h1>
 
-An online interactive 3D model of a superconducting quantum computer
+An interactive three.js model of a superconducting quantum computer
 that you can take apart, from the equipment room down to a single Josephson junction.
 
 ## User Interface
