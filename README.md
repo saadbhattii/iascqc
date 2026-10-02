@@ -9,7 +9,7 @@ that you can take apart, from the equipment room down to a single Josephson junc
 ## User Interface
 
 <p align="center">
-  <img src="docs/screenshots/quantum-chip.png" alt="Iascqc interface" width="900">
+  <img src="docs/screenshots/quantum-chip-doc.png" alt="Iascqc interface" width="900">
 </p>
 
 <p align="center">
