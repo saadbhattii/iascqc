@@ -46,7 +46,7 @@
       where: 'Control rack', temp: 'Room temperature', tempK: 300,
       text: [
         'Readout signals are mixed back down and sampled by analog-to-digital converters. An FPGA separates each qubit\u2019s frequency channel and decides 0 or 1 in real time.',
-        'Because this takes nanoseconds, the FPGA can trigger feedback \u2014 an operation that depends on a measurement result, which error correction relies on.',
+        'Because this takes nanoseconds, the FPGA can trigger feedback, an operation that depends on a measurement result, which error correction relies on.',
       ],
       links: ['feedline', 'rtamp'],
     },
@@ -94,7 +94,7 @@
       name: 'Turbomolecular pump', view: 'system', cat: 'Cryogenic support',
       where: 'Gas handling system', temp: 'Room temperature', tempK: 300,
       text: [
-        'Pumps helium-3 vapour off the still at very low pressure. That steady evaporation keeps helium-3 crossing the phase boundary in the mixing chamber \u2014 the process that produces the cooling.',
+        'Pumps helium-3 vapour off the still at very low pressure. That steady evaporation keeps helium-3 crossing the phase boundary in the mixing chamber, the process that produces the cooling.',
       ],
       links: ['still', 'mxc'],
     },
@@ -299,7 +299,7 @@
       name: 'Mixing chamber', view: 'cryostat', cat: 'Cooling',
       where: 'On the mixing chamber plate', temp: 'About 10 mK', tempK: 0.01,
       text: [
-        'Where the cooling happens. Below about 0.87 K the helium mixture separates into a helium-3-rich layer floating on a dilute layer. When helium-3 atoms are drawn across the boundary into the dilute layer they absorb heat \u2014 like evaporation, but into a liquid.',
+        'Where the cooling happens. Below about 0.87 K the helium mixture separates into a helium-3-rich layer floating on a dilute layer. When helium-3 atoms are drawn across the boundary into the dilute layer they absorb heat, similar to evaporation but occurring inside a liquid.',
         'Pumping on the still keeps drawing helium-3 across, holding the chamber near 10 mK continuously.',
       ],
       links: ['still', 'chx', 'platemxc'],
@@ -338,7 +338,7 @@
       name: 'Cryogenic attenuators', view: 'cryostat', cat: 'Signal wiring',
       where: '4 K, still, cold and mixing chamber plates', temp: 'Each stage', tempK: 0.5,
       text: [
-        'Drive lines carry about 60 dB of attenuation in total \u2014 a million-fold power reduction \u2014 spread across the stages, for example 20 dB at 4 K and more at colder plates.',
+        'Drive lines carry about 60 dB of attenuation in total, a million-fold power reduction, spread across the stages, for example 20 dB at 4 K and more at colder plates.',
         'The goal is to remove thermal noise, not the signal (which is simply sent stronger). Each attenuator replaces warm noise from above with noise at its own colder temperature.',
       ],
       links: ['irfilter', 'coax'],
@@ -557,7 +557,7 @@
       name: 'Readout feedline', view: 'chip', cat: 'Circuit elements',
       where: 'Across the top of the chip', temp: 'About 10 mK', tempK: 0.01,
       text: [
-        'One line shared by several readout resonators, each at a different frequency. A comb of tones reads them all at once \u2014 frequency multiplexing \u2014 which keeps the cable count down.',
+        'One line shared by several readout resonators, each at a different frequency. A comb of tones reads them all at once using frequency multiplexing, which keeps the cable count down.',
       ],
     },
     xyline: {
@@ -636,7 +636,7 @@
       name: 'Tunnel barrier (AlOx)', view: 'qubit', cat: 'Junction layers',
       where: 'Between the electrodes', temp: 'About 10 mK', tempK: 0.01,
       text: [
-        'Oxygen is let into the chamber so a 1\u20132 nm layer of aluminium oxide grows on the first electrode. Cooper pairs tunnel through this insulator coherently \u2014 the Josephson effect \u2014 so the junction acts as a lossless, nonlinear inductor.',
+        'Oxygen is let into the chamber so a 1\u20132 nm layer of aluminium oxide grows on the first electrode. Cooper pairs tunnel through this insulator coherently through the Josephson effect, so the junction acts as a lossless, nonlinear inductor.',
         'The barrier thickness, controlled almost atom by atom, sets the qubit frequency, so making thousands of identical junctions is a major challenge.',
       ],
     },
